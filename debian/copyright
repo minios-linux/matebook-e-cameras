@@ -1,0 +1,66 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: MateBook E cameras
+Source: https://github.com/minios-linux/matebook-e-cameras
+
+Files: *
+Copyright: 2026 MiniOS Linux contributors
+License: GPL-2.0-only
+
+Files: drivers/hi846.c drivers/matebook-sensor-tables.h
+Copyright: 2021 Purism SPC
+           2026 MiniOS Linux contributors
+License: GPL-2.0-only
+Comment: HI846 register firmware is present in the GPL Linux driver. Clock,
+ mode and board register values are adapted for the DRR-WXX hardware.
+
+Files: drivers/ipu-bridge.c
+Copyright: Dan Scally and Linux kernel contributors (see source notices)
+License: GPL-2.0-only
+
+Files: drivers/dw9714.c
+Copyright: Linux kernel contributors (see source notices)
+License: GPL-2.0-only
+
+Files: experiments/hid-goodix-spi.c
+Copyright: 2024 Goodix, Inc.
+           2026 MiniOS Linux contributors
+License: GPL-2.0-or-later
+
+Files: vendor/libcamera/*
+Copyright: libcamera contributors (see individual source notices)
+License: LGPL-2.1-or-later and GPL-2.0-or-later and BSD-2-Clause and BSD-3-Clause and MIT and Apache-2.0 and CC0-1.0 and CC-BY-4.0 and CC-BY-SA-4.0
+Comment: Individual SPDX identifiers are authoritative. The complete upstream
+ license texts are retained in vendor/libcamera/LICENSES and installed under
+ /usr/share/matebook-e-cameras/licenses by the runtime package.
+
+License: GPL-2.0-only
+ The complete text is in COPYING and /usr/share/common-licenses/GPL-2.
+
+License: GPL-2.0-or-later
+ The complete GPL version 2 text is in /usr/share/common-licenses/GPL-2;
+ later versions may be used as allowed by the individual source notice.
+
+License: LGPL-2.1-or-later
+ The complete LGPL version 2.1 text is in /usr/share/common-licenses/LGPL-2.1;
+ later versions may be used as allowed by the individual source notice.
+
+License: BSD-2-Clause
+ See vendor/libcamera/LICENSES/BSD-2-Clause.txt.
+
+License: BSD-3-Clause
+ See vendor/libcamera/LICENSES/BSD-3-Clause.txt.
+
+License: MIT
+ See vendor/libcamera/LICENSES/MIT.txt.
+
+License: Apache-2.0
+ See /usr/share/common-licenses/Apache-2.0.
+
+License: CC0-1.0
+ See vendor/libcamera/LICENSES/CC0-1.0.txt.
+
+License: CC-BY-4.0
+ See vendor/libcamera/LICENSES/CC-BY-4.0.txt.
+
+License: CC-BY-SA-4.0
+ See vendor/libcamera/LICENSES/CC-BY-SA-4.0.txt.

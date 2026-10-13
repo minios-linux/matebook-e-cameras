@@ -1,0 +1,23 @@
+[Unit]
+Description=MateBook E cameras (on-demand V4L2 bridge)
+ConditionPathExists=/sys/bus/acpi/devices/HYV0846:00
+ConditionPathExists=/sys/bus/acpi/devices/SSE5364:00
+Requires=matebook-e-cameras.service
+After=matebook-e-cameras.service
+Before=display-manager.service
+
+[Service]
+Type=notify
+Environment=LD_LIBRARY_PATH=@LIBDIR@/matebook-e-cameras/lib
+Environment=GST_PLUGIN_PATH=@LIBDIR@/matebook-e-cameras/gstreamer-1.0
+Environment=GST_REGISTRY=/var/cache/matebook-e-cameras/gstreamer-registry.bin
+Environment=LIBCAMERA_IPA_MODULE_PATH=@LIBDIR@/matebook-e-cameras/ipa
+Environment=LIBCAMERA_IPA_PROXY_PATH=/usr/libexec/matebook-e-cameras
+Environment=LIBCAMERA_IPA_CONFIG_PATH=/usr/share/matebook-e-cameras/ipa
+ExecStart=/usr/bin/python3 /usr/libexec/matebook-e-cameras/matebook_camera_bridge.py
+CacheDirectory=matebook-e-cameras
+Restart=on-failure
+RestartSec=3
+
+[Install]
+WantedBy=multi-user.target

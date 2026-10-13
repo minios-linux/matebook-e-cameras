@@ -1,0 +1,9 @@
+matebook-e-cameras (0.1.0) unstable; urgency=medium
+
+  * Initial MiniOS camera integration for Huawei MateBook E 2023 DRR-WXX.
+  * Add DKMS sensor, IPU bridge and rear lens drivers.
+  * Provide two on-demand V4L2 cameras with a private libcamera stack.
+  * Add automatic exposure, initial rear focus and clean stream shutdown.
+  * Keep raw IPU6 channels out of the desktop camera catalogue.
+
+ -- crims0n <crims0n@minios.dev>  Tue, 13 Oct 2026 20:57:53 +0300

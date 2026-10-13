@@ -1,0 +1,5 @@
+usr/lib/*/matebook-e-cameras/*
+usr/libexec/matebook-e-cameras/*
+usr/share/matebook-e-cameras/*
+etc/modprobe.d/matebook-e-cameras.conf
+usr/lib/udev/rules.d/*matebook-e-camera*.rules

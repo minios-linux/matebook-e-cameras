@@ -1,0 +1,17 @@
+[Unit]
+Description=MateBook E camera sensor and loopback modules
+ConditionPathExists=/sys/bus/acpi/devices/HYV0846:00
+ConditionPathExists=/sys/bus/acpi/devices/SSE5364:00
+After=systemd-udev-trigger.service
+Before=display-manager.service
+
+[Service]
+Type=oneshot
+ExecStart=/sbin/modprobe hi846
+ExecStart=/sbin/modprobe s5k3l6-matebook
+ExecStart=/sbin/modprobe dw9714
+ExecStart=/sbin/modprobe v4l2loopback
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

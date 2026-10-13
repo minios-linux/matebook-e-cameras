@@ -1,0 +1,54 @@
+#!/usr/bin/make -f
+include /usr/share/dpkg/pkg-info.mk
+include /usr/share/dpkg/architecture.mk
+export DEB_VERSION_UPSTREAM
+export DEB_BUILD_MAINT_OPTIONS = hardening=+all
+BUILD_DIR = .build/libcamera
+PRIVATE_LIB = debian/matebook-e-cameras/usr/lib/$(DEB_HOST_MULTIARCH)/matebook-e-cameras/lib
+PRIVATE_IPA = debian/matebook-e-cameras/usr/lib/$(DEB_HOST_MULTIARCH)/matebook-e-cameras/ipa
+
+%:
+	dh $@ --buildsystem=none
+
+override_dh_auto_configure:
+	meson setup $(BUILD_DIR) vendor/libcamera --prefix=/usr \
+		--libdir=lib/$(DEB_HOST_MULTIARCH) --libexecdir=libexec/$(DEB_HOST_MULTIARCH) \
+		-Dpipelines=simple -Dipas=simple -Dgstreamer=enabled \
+		-Dcam=disabled -Dqcam=disabled -Dpycamera=disabled -Dv4l2=disabled \
+		-Ddocumentation=disabled -Dlc-compliance=disabled -Dtracing=disabled \
+		-Dlibdw=disabled -Dlibunwind=disabled -Dsoftisp-gpu=enabled
+
+override_dh_auto_build:
+	ninja -C $(BUILD_DIR)
+
+override_dh_auto_test:
+	python3 -m unittest discover -s tests -v
+
+override_dh_auto_install:
+	python3 tools/install_runtime.py $(BUILD_DIR) debian/tmp $(DEB_HOST_MULTIARCH) $(DEB_VERSION_UPSTREAM)
+
+override_dh_install:
+	dh_install
+
+override_dh_installsystemd:
+	dh_installsystemd --no-start --name=matebook-e-cameras
+	dh_installsystemd --no-start --name=matebook-e-camera-bridge
+
+override_dh_dkms:
+	dh_dkms -V$(DEB_VERSION_UPSTREAM)
+
+override_dh_makeshlibs:
+	dh_makeshlibs -n
+
+override_dh_shlibdeps:
+	dh_shlibdeps -l$(CURDIR)/$(PRIVATE_LIB) -- -xmatebook-e-cameras
+
+override_dh_strip:
+	dh_strip
+	openssl dgst -sha256 -sign $(BUILD_DIR)/src/ipa-priv-key.pem \
+		-out $(PRIVATE_IPA)/ipa_soft_simple.so.sign $(PRIVATE_IPA)/ipa_soft_simple.so
+
+override_dh_auto_clean:
+	rm -rf .build debian/generated
+	rm -f debian/matebook-e-cameras.matebook-e-cameras.service \
+		debian/matebook-e-cameras.matebook-e-camera-bridge.service

@@ -1,0 +1,3 @@
+# The system bridge owns IPU6 capture channels; desktop applications use video42/43.
+SUBSYSTEM=="video4linux", DEVPATH=="*/0000:00:05.0/*", OWNER="root", GROUP="root", MODE="0600", TAG-="uaccess", ENV{ID_V4L_CAPABILITIES}=""
+SUBSYSTEM=="media", DEVPATH=="*/0000:00:05.0/*", OWNER="root", GROUP="root", MODE="0600", TAG-="uaccess"

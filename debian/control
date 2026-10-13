@@ -1,0 +1,61 @@
+Source: matebook-e-cameras
+Section: video
+Priority: optional
+Maintainer: crims0n <crims0n@minios.dev>
+Build-Depends: debhelper-compat (= 13),
+ dh-sequence-dkms,
+ g++ (>= 12),
+ meson (>= 0.64),
+ ninja-build,
+ pkgconf,
+ python3 (>= 3.9),
+ python3-gi,
+ python3-jinja2,
+ python3-ply,
+ python3-yaml,
+ gir1.2-gstreamer-1.0,
+ libegl-dev,
+ libgles-dev,
+ libglib2.0-dev,
+ libgnutls28-dev,
+ libgstreamer1.0-dev,
+ libgstreamer-plugins-base1.0-dev,
+ libudev-dev,
+ libyaml-dev,
+ openssl
+Standards-Version: 4.7.2
+Rules-Requires-Root: no
+Homepage: https://github.com/minios-linux/matebook-e-cameras
+Vcs-Git: https://github.com/minios-linux/matebook-e-cameras.git
+Vcs-Browser: https://github.com/minios-linux/matebook-e-cameras
+
+Package: matebook-e-cameras
+Architecture: amd64
+Depends: matebook-e-cameras-dkms (= ${binary:Version}),
+ v4l2loopback-dkms,
+ python3 (>= 3.9),
+ python3-gi,
+ gir1.2-gstreamer-1.0,
+ gstreamer1.0-plugins-base,
+ gstreamer1.0-plugins-good,
+ ${misc:Depends},
+ ${shlibs:Depends}
+Suggests: cheese, gstreamer1.0-tools, v4l-utils
+Description: on-demand camera integration for Huawei MateBook E 2023
+ Provides two ordinary V4L2 cameras backed by the Intel IPU6 controller,
+ Hynix HI846 front sensor and Samsung S5K3L6 rear sensor on DRR-WXX.
+ .
+ Includes a private libcamera stack, automatic exposure and initial rear
+ focus, a system bridge, and desktop enumeration rules. The sensors are
+ released when applications close the cameras.
+
+Package: matebook-e-cameras-dkms
+Section: kernel
+Architecture: all
+Depends: dkms (>= 3.0.11), ${misc:Depends}
+Description: DKMS camera drivers for Huawei MateBook E 2023
+ Driver sources for the IPU bridge, Hynix HI846, Samsung S5K3L6 and
+ DW9714 lens controller used by the MateBook E 2023 camera integration.
+ .
+ The ACPI and register integration is tested with the DRR-WXX tablet
+ and Debian Linux 6.12.111. Matching kernel headers are needed for DKMS.
