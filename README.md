@@ -56,6 +56,10 @@ The userspace binary targets amd64, matching the supported Alder Lake tablet.
 DKMS builds against the installed kernel headers. Package installation enables
 the services; reboot to activate the replacement kernel modules.
 
+The root `Makefile` is the DKMS entry point and calls the kernel build system
+with `M=<source>/drivers`. `drivers/Makefile` is Kbuild-only. Keeping these
+separate allows DKMS to pass `KERNELRELEASE` to its outer make invocation.
+
 ## Sources and hardware status
 
 Kernel drivers originate from Linux 6.12, with MateBook-specific ACPI,

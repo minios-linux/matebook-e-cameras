@@ -1,3 +1,13 @@
+matebook-e-cameras (0.1.1) unstable; urgency=medium
+
+  * Fix DKMS builds when DKMS supplies KERNELRELEASE to the outer make.
+  * Use the matebook-e-dsi wrapper layout: root Makefile calls Kbuild,
+    drivers/Makefile contains only external module declarations.
+  * Install the root wrapper with the versioned DKMS source tree.
+  * Test the DKMS make and clean recipes with a non-empty KERNELRELEASE.
+
+ -- crims0n <crims0n@minios.dev>  Wed, 14 Oct 2026 01:15:28 +0300
+
 matebook-e-cameras (0.1.0) unstable; urgency=medium
 
   * Initial MiniOS camera integration for Huawei MateBook E 2023 DRR-WXX.

@@ -45,6 +45,7 @@ for rule in Path("integration").glob("*.rules"):
     install(rule, destination / "usr/lib/udev/rules.d" / rule.name)
 
 drivers = destination / "usr/src" / f"matebook-e-cameras-{version}" / "drivers"
+install("Makefile", drivers.parent / "Makefile")
 for source in Path("drivers").iterdir():
     if source.suffix in (".c", ".h") or source.name == "Makefile":
         install(source, drivers / source.name)
